@@ -20,8 +20,6 @@ public class CardData
     private List<int> _beCoverIds = new List<int>();
     //卡牌所处位置信息 x=横向 y=纵向 z=所处层级
     private Vector3 _gridData = Vector3.zero;
-    //可能会覆盖住我的位置
-    private Vector3 _possibleCoverMe = new Vector3();
 
     //是否有卡牌覆盖自己
     public bool IsHaveCoverCard()

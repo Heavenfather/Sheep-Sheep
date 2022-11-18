@@ -1,0 +1,13 @@
+/Library
+/Temp
+Library/AnnotationManager
+Library/APIUpdater/project-dependencies.graph
+.vscode/settings.json
+Logs/Packages-Update.log
+MySheep.sln
+obj/Debug/.NETFramework,Version=v4.7.1.AssemblyAttributes.cs
+obj/Debug/Assembly-CSharp-firstpass.csproj.AssemblyReference.cache
+obj/Debug/Assembly-CSharp.csproj.AssemblyReference.cache
+Assembly-CSharp.csproj
+Assembly-CSharp-firstpass.csproj
+Sheep-Sheep.sln

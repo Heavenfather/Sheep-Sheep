@@ -50,10 +50,10 @@ public class DeckMgr
         //如果列数大于4,就必定是在下面，要不然界面显示会有重叠
         if (_currentLevelData.col >= 4)
             isLeftRight = false;
+        int leftCount = Mathf.FloorToInt(remainCount / 2);
+        int rightCount = Mathf.CeilToInt(remainCount / 2);
         if (isLeftRight)
         {
-            int leftCount = Mathf.FloorToInt(remainCount / 2);
-            int rightCount = Mathf.CeilToInt(remainCount / 2);
             for (int i = 0; i < leftCount; i++)
             {
                 CreatedBorderCard(CardPosEnum.Left, ref createdCount);
@@ -65,8 +65,6 @@ public class DeckMgr
         }
         else
         {
-            int leftCount = Mathf.FloorToInt(remainCount / 2);
-            int rightCount = Mathf.CeilToInt(remainCount / 2);
             for (int i = 0; i < leftCount; i++)
             {
                 CreatedBorderCard(CardPosEnum.BottomLeft, ref createdCount);
@@ -128,6 +126,21 @@ public class DeckMgr
         _currentLevelData = null;
     }
 
+    //如果个数太多 缩放一下图片
+    public float GetScaling()
+    {
+        if (_currentLevelData.col >= 7)
+        {
+            return 6.0f / (_currentLevelData.col + 1.0f);
+        }
+        return 1.0f;
+    }
+
+    public LevelData GetCurrentLevelData()
+    {
+        return _currentLevelData;
+    }
+
     private void CreatedBorderCard(CardPosEnum pos, ref int id)
     {
         CardData cardData = new CardData(id, pos);
@@ -185,10 +198,10 @@ public class DeckMgr
         Vector3 curGridData = curCard.GetGridData();
         Vector3 targetGridData = targetCard.GetGridData();
         Vector3 subVec = curGridData - targetGridData;
-        //象限图
-        if (subVec.x == 0 && subVec.y == 0 && subVec.z < 0)
+        //象限图 x轴向左 y轴向上
+        if ((subVec.x == 0 && subVec.y == 0 && subVec.z < 0))
         {
-            //同位置不同层
+            //同位置不同层 or 随机在中间层的某一个位置会有可能是相同的格子坐标
             if (curCard.offsetEnum == CardOffsetEnum.None || targetCard.offsetEnum == CardOffsetEnum.None)
                 return true;
             if (curCard.offsetEnum == CardOffsetEnum.Up && targetCard.offsetEnum != CardOffsetEnum.Down)

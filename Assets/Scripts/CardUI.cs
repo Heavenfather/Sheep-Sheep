@@ -26,7 +26,7 @@ public class CardUI : MonoBehaviour
         data = cardData;
         bool haveCover = cardData.IsHaveCoverCard();
         img.color = haveCover ? Color.grey : Color.white;
-        img.sprite = sprites[cardData.spriteId];
+        RefreshSprite(cardData.spriteId);
         Vector3 grid = data.GetGridData();
         int coverId = data.GetCoverId();
         gameObject.name = "id" + cardData.cardId + "pos(" + grid.x + "_" + grid.y + "_" + grid.z + ")_coverId:" + coverId + "_offset:" + data.offsetEnum.ToString();
@@ -37,12 +37,24 @@ public class CardUI : MonoBehaviour
         _cardParent = deck;
     }
 
+    public void RefreshSprite(int spriteId)
+    {
+        data.spriteId = spriteId;
+        img.sprite = sprites[spriteId];
+    }
+
+    public void SetButtonEnable()
+    {
+        btn.interactable = false;
+    }
+
     private void OnSelfClick()
     {
         if (data.IsHaveCoverCard())
             return;
         if (_cardParent != null)
         {
+            SetButtonEnable();
             DeckMgr.GetInstance().RemoveCard(data);
             _cardParent.OnCardUIClick(this);
         }
